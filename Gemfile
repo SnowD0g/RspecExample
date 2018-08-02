@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.3.4'
 gem 'rails', '~> 5.2.0'
-gem 'sqlite3'
 gem 'pg'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
@@ -17,6 +16,7 @@ gem 'haml-rails'
 gem 'simple_form', '~> 4.0', '>= 4.0.1'
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
 end
