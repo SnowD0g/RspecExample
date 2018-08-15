@@ -35,6 +35,7 @@ group :test do
   gem 'webdrivers'
   gem 'selenium-webdriver'
   gem 'rails-controller-testing'
+  gem 'factory_bot_rails'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

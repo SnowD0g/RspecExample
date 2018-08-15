@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  let(:project) { Project.new }
-  let(:task) { Task.new }
+  let(:project) { FactoryBot.build(:project) }
+  let(:task) { FactoryBot.build(:task) }
 
   it 'considers a project with no tasks to be done' do
    expect(project).to be_done
@@ -28,11 +28,11 @@ RSpec.describe Project, type: :model do
 
   # è diverso il setup, utilizzo un describe differente
   describe 'estimation' do
-    let(:project) { Project.new }
-    let(:newly_done) { Task.new(size: 3, completed_at: 1.days.ago) }
-    let(:old_done) { Task.new(size: 2, completed_at: 6.months.ago) }
-    let(:small_incomplete) { Task.new(size: 1) }
-    let(:large_incomplete) { Task.new(size: 4) }
+    let(:project) { FactoryBot.build(:project) }
+    let(:newly_done) { FactoryBot.build(:task, size: 3, completed_at: 1.days.ago) }
+    let(:old_done) { FactoryBot.build(:task, size: 2, completed_at: 6.months.ago) }
+    let(:small_incomplete) { FactoryBot.build(:task, size: 1) }
+    let(:large_incomplete) { FactoryBot.build(:task, size: 4) }
 
     before(:example) do
       project.tasks = [newly_done, old_done, small_incomplete, large_incomplete]

@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   it 'can distinguish its completion state' do
-    task = Task.new
+    task = FactoryBot.build(:task)
     expect(task).not_to be_completed
     task.mark_completion
     expect(task).to be_completed
   end
 
   describe 'velocity' do
-    let(:task) { Task.new(size: 2) }
+    let(:task) { FactoryBot.build(:task, size: 2) }
     it 'does not count an incomplete task toward velocity' do
       expect(task).not_to be_part_of_velocity
       expect(task.points_toward_velocity).to eq(0)
