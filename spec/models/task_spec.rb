@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Task do
+RSpec.describe Task, type: :model do
   it 'can distinguish its completion state' do
     task = Task.new
     expect(task).not_to be_completed

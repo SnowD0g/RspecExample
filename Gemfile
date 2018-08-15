@@ -32,8 +32,9 @@ group :test do
   gem 'rspec-rails'
   gem 'database_cleaner', '~> 1.7'
   gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'webdrivers'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+  gem 'rails-controller-testing'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

@@ -1,0 +1,5 @@
+= simple_form_for @project do |f|
+  = f.input :name
+  = f.label :tasks
+  = text_area_tag :"project[tasks]"
+  = f.submit 'Create Project'

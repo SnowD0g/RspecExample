@@ -1,0 +1,15 @@
+%h1
+  All Projects
+
+%table
+  %thead
+    %tr
+      %td
+        Project Name
+      %td
+        Total Project Size
+  %tbody
+    - @projects.each do |project|
+      %tr{ id: "project_#{project.id}" }
+        %td.name= project.name
+        %td.total_size= project.total_size
