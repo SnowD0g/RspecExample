@@ -29,12 +29,21 @@ RSpec.describe Project, type: :model do
   # è diverso il setup, utilizzo un describe differente
   describe 'estimation' do
     let(:project) { FactoryBot.build(:project) }
-    let(:newly_done) { FactoryBot.build(:task, size: 3, completed_at: 1.days.ago) }
-    let(:old_done) { FactoryBot.build(:task, size: 2, completed_at: 6.months.ago) }
-    let(:small_incomplete) { FactoryBot.build(:task, size: 1) }
-    let(:large_incomplete) { FactoryBot.build(:task, size: 4) }
+    let(:newly_done) { FactoryBot.build(:task) }
+    let(:old_done) { FactoryBot.build(:task) }
+    let(:small_incomplete) { FactoryBot.build(:task) }
+    let(:large_incomplete) { FactoryBot.build(:task) }
 
     before(:example) do
+      allow(newly_done).to receive(:size).and_return(3)
+      allow(newly_done).to receive(:completed_at).and_return(1.days.ago)
+
+      allow(old_done).to receive(:size).and_return(2)
+      allow(old_done).to receive(:completed_at).and_return(6.months.ago)
+
+      allow(small_incomplete).to receive(:size).and_return(1)
+      allow(large_incomplete).to receive(:size).and_return(4)
+
       project.tasks = [newly_done, old_done, small_incomplete, large_incomplete]
     end
 

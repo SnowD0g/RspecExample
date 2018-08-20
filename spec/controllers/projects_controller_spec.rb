@@ -12,10 +12,18 @@ RSpec.describe ProjectsController, type: :controller do
     let(:project_params) { { params: { project: { name: 'Runaway', tasks: 'Start something:2'} } } }
     let(:wrong_params) { { params: { project: { name: '', tasks: ''} } } }
 
+    # Il test ha una dipendenza indiretta con il model Project,
+    # per esempio modificando le validazioni nel model come side effect questo test può fallire.
+    # Per testare in maniera isolata il controller diminuendo l'accoppiamento utilizziamo i test doubles
     it 'creates a project' do
+      fake_action = instance_double(CreatesProject, create: true)
+      expect(CreatesProject).to receive(:new)
+        .with(name: project_params[:params][:project][:name], tasks_string: project_params[:params][:project][:tasks])
+        .and_return(fake_action)
+
       post :create, project_params
       expect(response).to redirect_to(projects_path)
-      expect(assigns(:action).project.name).to eq('Runaway')
+      expect(assigns(:action)).not_to be_nil
     end
 
     it 'goes back to the form on failure' do

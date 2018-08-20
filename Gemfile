@@ -19,6 +19,8 @@ group :development, :test do
   gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner', '~> 1.7'
 end
 
 group :development do
@@ -30,12 +32,12 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'database_cleaner', '~> 1.7'
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'webdrivers'
   gem 'selenium-webdriver'
   gem 'rails-controller-testing'
   gem 'factory_bot_rails'
+  gem 'email_spec'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
