@@ -14,6 +14,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'haml-rails'
 gem 'simple_form', '~> 4.0', '>= 4.0.1'
+gem 'devise'
 
 group :development, :test do
   gem 'sqlite3'

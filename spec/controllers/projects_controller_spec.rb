@@ -8,6 +8,11 @@ require 'rails_helper'
 # 2. assegnamento di variabili @ nei controller
 
 RSpec.describe ProjectsController, type: :controller do
+  # sign_in è un helper offerto da Devise::TestHelper presente per il test dei controllore
+  before(:example) do
+    sign_in User.create!(email: 'rspec@example.com', password: 'password')
+  end
+
   describe 'POST create' do
     let(:project_params) { { params: { project: { name: 'Runaway', tasks: 'Start something:2'} } } }
     let(:wrong_params) { { params: { project: { name: '', tasks: ''} } } }

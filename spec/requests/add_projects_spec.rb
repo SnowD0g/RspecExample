@@ -1,6 +1,15 @@
 require 'rails_helper'
+# Integration Test richiedono l'inclusione manuale delle fixtures
 
 RSpec.describe 'adding projects', type: :feature do
+  fixtures :all
+  include Warden::Test::Helpers
+
+  # negli Integration Test NON posso utilizzare Devise::TestHelper.sign_in
+  before(:example) do
+    login_as users(:user)
+  end
+
   it 'allows a user to create a project with tasks' do
     visit new_project_path
     fill_in 'Name', with: 'Project Runaway'
