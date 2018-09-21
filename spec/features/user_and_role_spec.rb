@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'with users and roles' do
-  def login(user)
+
+  def log_in_as(user)
     visit new_user_session_path
     fill_in('user_email', with: user.email)
     fill_in('user_password', with: user.password)
@@ -11,7 +12,7 @@ RSpec.describe 'with users and roles' do
   let(:user) { User.create(email: 'test@example.com', password: 'password') }
 
   it 'allow a logged user to view the project index page' do
-    login(user)
+    log_in_as(user)
     visit(projects_path)
     expect(current_path).to eq(projects_path)
   end
@@ -19,5 +20,32 @@ RSpec.describe 'with users and roles' do
   it 'does not allow user to see project page if not logged in' do
     visit(projects_path)
     expect(current_path).to eq(new_user_session_path)
+  end
+
+  describe 'roles' do
+    let(:project) { Project.create(name: 'Project Gutenberg') }
+
+    it 'allows a user who is part of a project to see that project' do
+      project.roles.create(user: user)
+      log_in_as(user)
+      visit(project_path(project))
+      expect(current_path).to eq(project_path(project))
+    end
+
+    it 'does not allow user who is not part of a project to see that project' do
+      log_in_as(user)
+      visit(project_path(project))
+      expect(current_path).not_to eq(project_path(project))
+    end
+  end
+
+  it 'allows users to see projects the are a part of on the index page' do
+    my_project = Project.create!(name: 'My Project')
+    my_project.roles.create(user: user)
+    not_my_project = Project.create!(name: 'Not My Project')
+    log_in_as(user)
+    visit(projects_path)
+    expect(page).to have_selector("#project_#{my_project.id}")
+    expect(page).not_to have_selector("#project_#{not_my_project.id}")
   end
 end

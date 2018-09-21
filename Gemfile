@@ -15,6 +15,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'haml-rails'
 gem 'simple_form', '~> 4.0', '>= 4.0.1'
 gem 'devise'
+gem 'twitter'
 
 group :development, :test do
   gem 'sqlite3'
@@ -22,6 +23,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner', '~> 1.7'
+  gem 'jasmine-rails'
 end
 
 group :development do
@@ -33,12 +35,12 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'capybara', '>= 2.15', '< 4.0'
-  gem 'webdrivers'
-  gem 'selenium-webdriver'
-  gem 'rails-controller-testing'
-  gem 'factory_bot_rails'
+  gem 'capybara' #driver di default è chrome headless
+  gem 'rails-controller-testing' # deprecato
   gem 'email_spec'
+  gem 'vcr'
+  gem 'webmock'
+  gem 'poltergeist'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

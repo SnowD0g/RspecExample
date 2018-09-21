@@ -1,13 +1,14 @@
 class CreatesProject
-  attr_reader :project
+  attr_reader :project, :users
 
   def initialize(options = {})
     @name = options[:name] || ''
     @tasks_string = options[:tasks_string] || ''
+    @users = options[:users] || []
   end
 
   def build
-    @project = Project.new(name: @name, tasks: convert_string_to_tasks)
+    @project = Project.new(name: @name, tasks: convert_string_to_tasks, users: users)
   end
 
   def create
@@ -25,6 +26,6 @@ class CreatesProject
   def build_task(task_attributes)
     title, size = task_attributes.split(':')
     size ||= 1
-    Task.new(title: title, size: size)
+    Task.new(title: title, size: size, user: users.first)
   end
 end

@@ -1,8 +1,12 @@
 class Project < ApplicationRecord
 
   has_many :tasks
+  has_many :roles
+  has_many :users, through: :roles
 
   validates :name, presence: true
+
+  scope :all_public, -> { where(public: true) }
 
   def self.velocity_length_in_days
     21

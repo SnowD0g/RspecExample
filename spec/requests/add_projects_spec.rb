@@ -3,11 +3,10 @@ require 'rails_helper'
 
 RSpec.describe 'adding projects', type: :feature do
   fixtures :all
-  include Warden::Test::Helpers
 
   # negli Integration Test NON posso utilizzare Devise::TestHelper.sign_in
   before(:example) do
-    login_as users(:user)
+    sign_in users(:user)
   end
 
   it 'allows a user to create a project with tasks' do

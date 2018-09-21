@@ -3,16 +3,21 @@ require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
+
 require 'rspec/rails'
 require 'capybara/rails'
+require 'capybara/poltergeist'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
-Capybara.default_driver = :selenium
+
+Capybara.default_driver = :poltergeist
 
 RSpec.configure do |config|
+
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  config.include Devise::TestHelpers, type: :controller
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
@@ -59,4 +64,11 @@ RSpec.configure do |config|
   config.append_after(:each) do
     DatabaseCleaner.clean
   end
+end
+
+VCR.configure do |config|
+  config.ignore_localhost = true
+  config.cassette_library_dir = 'spec/cassettes'
+  config.hook_into :webmock
+  config.configure_rspec_metadata!
 end
